@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProfileImageToUsersTable extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddProfileImageToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('profile_image', 50)->nullable()->after('password')->comment('This is where names of profile images are stored');
+        Schema::create('services', function (Blueprint $table) {
+            $table->id();
+            $table->string('service_name', 50);
+            $table->text('specification');
+            $table->decimal('amount', 20, 2);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddProfileImageToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('services');
     }
 }
